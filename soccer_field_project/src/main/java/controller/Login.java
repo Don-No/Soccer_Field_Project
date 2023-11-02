@@ -35,7 +35,8 @@ public class Login extends HttpServlet{
                 break;
             }
             else {
-            	req.getRequestDispatcher("/login.html").forward(req, resp);
+            	req.setAttribute("mess", "Wrong username or password!" );
+            	req.getRequestDispatcher("/login.jsp").forward(req, resp);
             }
             
           }
@@ -44,7 +45,6 @@ public class Login extends HttpServlet{
             e.printStackTrace();
         }
 
-            req.setAttribute("nofication_in", "0" );
             req.getRequestDispatcher("/product.html").forward(req, resp);
         
     }
