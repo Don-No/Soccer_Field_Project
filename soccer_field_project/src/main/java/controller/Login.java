@@ -38,14 +38,10 @@ public class Login extends HttpServlet{
                 } else {
                 	req.getRequestDispatcher("product.html").forward(req, resp);
                 }
-                break;
             }
-            else {
-            	req.setAttribute("mess", "Wrong username or password!" );
-            	req.getRequestDispatcher("/login.jsp").forward(req, resp);
-            }
-            
           }
+      		req.setAttribute("mess", "Wrong username or password!" );
+      		req.getRequestDispatcher("/login.jsp").forward(req, resp);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
