@@ -10,6 +10,7 @@ import java.util.List;
 
 import config.DBconnection;
 import model.Account;
+import model.Pitch;
 import model.Product;
 import model.User;
 
@@ -28,6 +29,7 @@ public class UserDAO {
         List<Account> list = new ArrayList<>()  ;
         while(rs.next()){
             list.add(new Account(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            System.out.println(rs.getString(1) + " " +rs.getString(2));
         }
         return list;
     }
@@ -45,30 +47,79 @@ public class UserDAO {
     }
     
     public List<User> getListUser() throws SQLException, ClassNotFoundException{
-        String query = "Select userName, roleID, email, fullName, address, phoneNumber , img From User_Table ";
+        String query = "Select userID, userName, roleID, email, fullName, address, phoneNumber , img From User_Table ";
         List<User> list = new ArrayList<>();
         conn = DBconnection.makeConnection();
         ps = conn.prepareStatement(query);
         rs = ps.executeQuery();
         while(rs.next()){
-            list.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+            list.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
         }
-        System.out.println(list.size());
         return list;
     }
     
     public List<Product> getListProduct() throws SQLException, ClassNotFoundException{
-        String query = "Select productName, img, productPrice, quantity From Product ";
+        String query = "Select productID, productName, img, productPrice, quantity From Product ";
         List<Product> list = new ArrayList<>();
         conn = DBconnection.makeConnection();
         ps = conn.prepareStatement(query);
         rs = ps.executeQuery();
         while(rs.next()){
-            list.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
-            System.out.println(rs.getString(2));
+            list.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
         }
-        System.out.println(list.size());
         return list;
+    }
+    
+    public List<Pitch> getListPitch() throws SQLException, ClassNotFoundException{
+        String query = "Select pitchID, img, price, pitchTypeID From Pitch ";
+        List<Pitch> list = new ArrayList<>();
+        conn = DBconnection.makeConnection();
+        ps = conn.prepareStatement(query);
+        rs = ps.executeQuery();
+        while(rs.next()){
+            list.add(new Pitch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+        }
+        return list;
+    }
+    
+    public void addProduct(String productName, String img, String productPrice,
+            String quantity) throws SQLException, ClassNotFoundException {
+
+            conn = DBconnection.makeConnection();
+            String query ="Insert into Product Values(?,?,?,?)";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productName);
+            ps.setString(2, img);
+            ps.setString(3, productPrice);
+            ps.setString(4, quantity);
+            ps.executeUpdate();
+    }
+    
+ // delete product
+    public void deleteProduct(int proId) throws SQLException, ClassNotFoundException {
+        conn = DBconnection.makeConnection();
+        String query = "DELETE FROM Product WHERE productID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, proId);
+        ps.executeUpdate();
+    }
+    
+ // delete pitch
+    public void deletePitch(int pitchId) throws SQLException, ClassNotFoundException {
+        conn = DBconnection.makeConnection();
+        String query = "DELETE FROM Pitch WHERE pitchID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, pitchId);
+        ps.executeUpdate();
+    }
+    
+    // delete user 
+    public void deleteUser(int userId) throws SQLException, ClassNotFoundException {
+        conn = DBconnection.makeConnection();
+        String query = "DELETE FROM User_Table WHERE userID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, userId);
+        ps.executeUpdate();
     }
 }
 

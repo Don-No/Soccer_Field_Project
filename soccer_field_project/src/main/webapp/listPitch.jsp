@@ -104,27 +104,41 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>Product Name</th>
+										<th>Pitch ID</th>
 										<th>Images</th>
 										<th>Price</th>
-										<th>Quantity</th>
+										<th>Type</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${list_product}" var="pro">
+									<c:forEach items="${list_pitch}" var="pitch">
 										<tr>
-											<td>${pro.productName}</td>
-											<td><img src="${pro.img}" alt=""></td>
-											<td>${pro.productPrice}</td>
-											<td>${pro.quantity}</td>
+											<td>${pitch.pitchID}</td>
+											<td><img src="${pitch.img}" alt=""></td>
+											<td>${pitch.price}</td>
+											<td><c:choose>
+													<c:when test="${pitch.pitchTypeID eq 1}">
+      															Pitch_5
+    															</c:when>
+													<c:when test="${pitch.pitchTypeID eq 2}">
+      															Pitch_7
+   																</c:when>
+													<c:when test="${pitch.pitchTypeID eq 3}">
+      															Pitch_11
+   																</c:when>
+													<c:otherwise>
+      															Unknown Role
+    															</c:otherwise>
+												</c:choose></td>
 											<td class="actions-cell">
 												<div class="buttons right nowrap">
 													<button class="button small green --jb-modal show"
 														data-target="sample-modal-2" type="button">
 														<span class="icon"><i class="mdi mdi-eye"></i></span>
 													</button>
-													<a href="deleteProduct?product_id=${pro.productID}" class="button small red --jb-modal"
+													<a href="deletePitch?pitch_id=${pitch.pitchID}"
+														class="button small red --jb-modal"
 														data-target="sample-modal"> <span class="icon-button">
 															<button type="button">
 																<span class="icon"><i class="mdi mdi-trash-can"></i></span>
