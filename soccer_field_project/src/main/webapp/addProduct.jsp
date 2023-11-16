@@ -2,6 +2,7 @@
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -30,18 +31,19 @@
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
+
 <body>
 	<div class="container-scroller">
-		<!-- partial:../../partials/_sidebar.html -->
+		<!-- partial:partials/_sidebar.html -->
 		<c:import url="sidebar.jsp" />
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
-			<!-- partial:../../partials/_navbar.html -->
+			<!-- partial:partials/_navbar.html -->
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-					<a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-						src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+					<a class="navbar-brand brand-logo-mini" href="index.html"><img
+						src="assets/images/logo-mini.svg" alt="logo" /></a>
 				</div>
 				<div
 					class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -50,7 +52,7 @@
 						<span class="mdi mdi-menu"></span>
 					</button>
 					<ul class="navbar-nav navbar-nav-right">
-
+						<li class="nav-item nav-settings d-none d-lg-block"></li>
 
 						<li class="nav-item dropdown"><a class="nav-link"
 							id="profileDropdown" href="#" data-toggle="dropdown">
@@ -99,56 +101,49 @@
 			<!-- partial -->
 			<div class="main-panel">
 				<div class="content-wrapper">
-					<div class="page-header">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Product Name</th>
-										<th>Images</th>
-										<th>Price</th>
-										<th>Quantity</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${list_product}" var="pro">
-										<tr>
-											<td>${pro.productName}</td>
-											<td><img src="${pro.img}" alt=""></td>
-											<td>${pro.productPrice}</td>
-											<td>${pro.quantity}</td>
-											<td class="actions-cell">
-												<div class="buttons right nowrap">
-													<button class="button small green --jb-modal show"
-														data-target="sample-modal-2" type="button">
-														<span class="icon"><i class="mdi mdi-eye"></i></span>
-													</button>
-													<a href="deleteProduct?product_id=${pro.productID}" class="button small red --jb-modal"
-														data-target="sample-modal"> <span class="icon-button">
-															<button type="button">
-																<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-															</button>
-													</span>
-													</a>
-
-												</div>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+					<div class="row ">
+						<div class="col-12 grid-margin">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Add Product</h4>
+									<div class="table-responsive">
+										<!-- Add Product Form -->
+										<form action="addProduct" method="post">
+											<div class="form-group">
+												<label for="productName">Name:</label> <input type="text"
+													class="form-control" id="productName" name="productName"
+													required>
+											</div>
+											<div class="form-group">
+												<label for="productPrice">Price:</label> <input type="text"
+													class="form-control" id="productPrice" name="productPrice"
+													required>
+											</div>
+											<div class="form-group">
+												<label for="productQuantity">Quantity:</label> <input
+													type="text" class="form-control" id="productQuantity"
+													name="productQuantity" required>
+											</div>
+											<div class="form-group">
+												<label for="productImage">Image:</label> <input type="file"
+													name="productImage" class="form-control-file"
+													id="productImage" required>
+											</div>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</form>
+										<!-- End Add Product Form -->
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
 				</div>
-				<!-- content-wrapper ends -->
-				<!-- partial:../../partials/_footer.html -->
-				<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
+	</div>
+	<!-- main-panel ends -->
+	</div>
+	<!-- page-body-wrapper ends -->
 	</div>
 	<!-- container-scroller -->
 	<!-- plugins:js -->
@@ -171,12 +166,7 @@
 	<!-- endinject -->
 	<!-- Custom js for this page -->
 	<script src="assets/js/dashboard.js"></script>
-
-	<script>
-		function reloadPage() {
-			location.reload();
-		}
-	</script>
 	<!-- End custom js for this page -->
 </body>
+
 </html>
