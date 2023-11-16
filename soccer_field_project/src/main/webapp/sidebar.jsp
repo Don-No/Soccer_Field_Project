@@ -85,11 +85,21 @@
 								href="addProduct.jsp">Add Product</a></li>
 						</ul>
 					</div></li>
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="listPitch"> <span class="menu-icon"> <i
-							class="mdi mdi-chart-bar"></i>
-					</span> <span class="menu-title">Pitch Management</span>
-				</a></li>
+				<li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-security"></i>
+              </span>
+              <span class="menu-title">Pitch Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="listPitch"> List Pitch </a></li>
+                <li class="nav-item"> <a class="nav-link" href="addPitch.jsp"> Add pitch </a></li>
+              </ul>
+            </div>
+          </li>
 			</ul>
 		</nav>
 		<!-- partial -->

@@ -95,6 +95,18 @@ public class UserDAO {
             ps.executeUpdate();
     }
     
+    public void addPitch(String img, String pitchPrice,
+            String pitchType) throws SQLException, ClassNotFoundException {
+
+            conn = DBconnection.makeConnection();
+            String query ="Insert into Pitch Values(?,?,?)";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, img);
+            ps.setString(2, pitchPrice);
+            ps.setString(3, pitchType);
+            ps.executeUpdate();
+    }
+    
  // delete product
     public void deleteProduct(int proId) throws SQLException, ClassNotFoundException {
         conn = DBconnection.makeConnection();
