@@ -22,14 +22,14 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  ">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.jsp"> About</a>
+              <li class="nav-item .kk">
+                <a class="nav-link" href="PitchController"> Pitch</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Category.jsp">Category</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="ProductController">Category</a>
               </li>
 
               <li class="nav-item">
@@ -48,5 +48,6 @@
         </nav>
       </div>
     </header>
+    
 </body>
 </html>

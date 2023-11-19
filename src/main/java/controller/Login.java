@@ -48,7 +48,7 @@ public class Login extends HttpServlet{
                 HttpSession session = req.getSession();
                 session.setAttribute("user", username);
                 if (acc.getRole().equals("1")) {
-                req.getRequestDispatcher("AdminPage").forward(req, resp);
+                req.getRequestDispatcher("AdminPage.jsp").forward(req, resp);
                 } else {
                 	req.getRequestDispatcher("product.html").forward(req, resp);
                 }
