@@ -12,7 +12,7 @@
     <div class="container">
       <div class="info_logo">
         <h2>
-          HandTime
+          Soccer Field
         </h2>
       </div>
       <div class="row">
@@ -59,60 +59,6 @@
           </div>
         </div>
 
-        <!-- <div class="col-md-3">
-          <div class="info_insta">
-            <h5>
-              Instagram
-            </h5>
-            <div class="insta_container">
-              <div class="row m-0">
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w1.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w2.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w3.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w4.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w5.png" alt="">
-                    </div>
-                  </a>
-                </div>
-                <div class="col-4 px-0">
-                  <a href="">
-                    <div class="insta-box b-1">
-                      <img src="images/w6.png" alt="">
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="col-md-3">
           <div class="info_form ">
             <h5>
@@ -132,7 +78,7 @@
                 <img src="images/twitter.png" alt="">
               </a>
               <a href="">
-                <img src="images/linkedin.png" alt="">
+                <img src="images/Soccer Fieldlinkedin.png" alt="">
               </a>
               <a href="">
                 <img src="images/youtube.png" alt="">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,24 +27,35 @@
                 <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.jsp">Soccer Field</a>
+                <a class="nav-link" href="listPitchUser">Soccer Field</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Category.jsp">Category</a>
+                <a class="nav-link" href="listProductUser">Product</a>
               </li>
 
               <li class="nav-item">
                 <a class="nav-link" href="contact.jsp">Contact Us</a>
               </li>
             </ul>
-            <div class="user_optio_box">
-              <a href="login.jsp">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a href="Cart.jsp">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              </a>
-            </div>
+            
+            
+	            <div class="user_optio_box">
+    		<c:if test="${empty sessionScope.user}">
+
+        	<a href="${pageContext.request.contextPath}/login">
+		    <i class="fa fa-user" aria-hidden="true"></i>
+		        </a>
+		    </c:if>
+		    <c:if test="${not empty sessionScope.user}">
+				${sessionScope.user}
+		    </c:if>
+		    <a href="${pageContext.request.contextPath}/Cart.jsp">
+		        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+		    </a>
+		</div>
+		
+		
+		
           </div>
         </nav>
       </div>

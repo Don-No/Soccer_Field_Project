@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.UserService;
 
 @WebServlet(name = "userController", urlPatterns = {"/signup"})
-public class UserController extends HttpServlet{
+public class SignUpController extends HttpServlet{
 	
 	private UserService userService = new UserService();
 	
@@ -19,10 +19,9 @@ public class UserController extends HttpServlet{
 		String path = req.getServletPath();
 		
 		switch (path) {
-		
-		case "/signup":
-			
-			req.getRequestDispatcher("signup.jsp").forward(req, resp);
+			case "/login":
+				req.getRequestDispatcher("login.jsp").forward(req, resp);
+				break;
 		}
 	}
 
@@ -37,19 +36,36 @@ public class UserController extends HttpServlet{
 	    if (username.isEmpty() || fullname.isEmpty() || password.isEmpty()
 	            || email.isEmpty() || phone.isEmpty()) {
 	        req.setAttribute("emptyFields", "Vui lòng điền đầy đủ thông tin");
-	        req.getRequestDispatcher("signup.jsp").forward(req, resp);
+	        req.getRequestDispatcher("login.jsp").forward(req, resp);
 	        return;
 	    }
-	    	
+
+	    // Kiểm tra username, email, phone tồn tại trước khi đăng ký
+	    if (userService.isUsernameExists(username)) {
+	        req.setAttribute("signupError", "Username đã tồn tại");
+	        req.getRequestDispatcher("login.jsp").forward(req, resp);
+	        return;
+	    }
+
+	    if (userService.isEmailExists(email)) {
+	        req.setAttribute("signupError", "Email đã tồn tại");
+	        req.getRequestDispatcher("login.jsp").forward(req, resp);
+	        return;
+	    }
+
+	    if (userService.isPhoneExists(phone)) {
+	        req.setAttribute("signupError", "Số điện thoại đã tồn tại");
+	        req.getRequestDispatcher("login.jsp").forward(req, resp);
+	        return;
+	    }
+
+	    // Nếu không có lỗi, thực hiện đăng ký
 	    boolean isSuccess = userService.signUpUser(username, fullname, password, email, phone);
 
 	    if (isSuccess) {
-	        resp.sendRedirect("index.html");
+	        resp.sendRedirect("login.jsp");
 	    } else {
-	    	req.getRequestDispatcher("signup.jsp").forward(req, resp);
+	    	req.getRequestDispatcher("login.jsp").forward(req, resp);
 	    }
 	}
-
-	
-
 }

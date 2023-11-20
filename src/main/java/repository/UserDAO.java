@@ -10,6 +10,7 @@ import java.util.List;
 
 import config.SQLServerConfig;
 import model.Account;
+import model.Pitch;
 import model.Product;
 import model.User;
 
@@ -70,6 +71,93 @@ public class UserDAO {
         System.out.println(list.size());
         return list;
     }
+    
+    public List<Pitch> getListPitch() throws SQLException, ClassNotFoundException {
+        String query = "SELECT pitchID, img, price, pitchTypeID FROM Pitch";
+        List<Pitch> list = new ArrayList<>();
+
+        try (Connection conn = SQLServerConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Pitch pitch = new Pitch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                list.add(pitch);
+            }
+        }
+
+        return list;
+    }
+
+    
+    public void addPitch(String img, String pitchPrice, String pitchType) throws SQLException, ClassNotFoundException {
+        try {
+            conn = SQLServerConfig.getConnection();
+            String query = "INSERT INTO Pitch VALUES (?, ?, ?)";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, img);
+            ps.setString(2, pitchPrice);
+            ps.setString(3, pitchType);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            throw e;
+        } finally {
+
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    
+    
+    public void addProduct(String productName, String img, String productPrice,
+            String quantity) throws SQLException, ClassNotFoundException {
+
+            conn = SQLServerConfig.getConnection();
+            String query ="Insert into Product Values(?,?,?,?)";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productName);
+            ps.setString(2, img);
+            ps.setString(3, productPrice);
+            ps.setString(4, quantity);
+            ps.executeUpdate();
+    }
+    
+ // delete product
+    public void deleteProduct(int proId) throws SQLException, ClassNotFoundException {
+        conn = SQLServerConfig.getConnection();
+        String query = "DELETE FROM Product WHERE productID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, proId);
+        ps.executeUpdate();
+    }
+    
+ // delete pitch
+    public void deletePitch(int pitchId) throws SQLException, ClassNotFoundException {
+        conn = SQLServerConfig.getConnection();
+        String query = "DELETE FROM Pitch WHERE pitchID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, pitchId);
+        ps.executeUpdate();
+    }
+    
+    // delete user 
+    public void deleteUser(int userId) throws SQLException, ClassNotFoundException {
+        conn = SQLServerConfig.getConnection();
+        String query = "DELETE FROM [User] WHERE userID = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, userId);
+        ps.executeUpdate();
+    }
+    
+    
+    
 }
 
 

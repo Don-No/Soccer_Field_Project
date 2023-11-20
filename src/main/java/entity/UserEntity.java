@@ -2,6 +2,8 @@ package entity;
 
 public class UserEntity {
 	
+	private int id;
+	
 	private String username;
 	
 	private String fullname;
@@ -13,6 +15,15 @@ public class UserEntity {
 	private String phone;
 	
 	private int idRole;
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getIdRole() {
 		return idRole;

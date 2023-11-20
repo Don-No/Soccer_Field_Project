@@ -37,13 +37,6 @@ ul {
 .section-p1 {
   padding: 40px 20px;
 }
-/* =============================================================================================================================*/
-/* =============================================================================================================================*/
-/*  */
-/*                                                Cart Page 
-/*  */
-/* =============================================================================================================================*/
-/* =============================================================================================================================*/
 
 #cart{
   overflow-x: auto;
@@ -168,22 +161,22 @@ img{
                 <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.jsp"> About</a>
+                <a class="nav-link" href="listPitchUser">Soccer Field</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Category.jsp">Products</a>
+                <a class="nav-link" href="listProductUser">Products</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.jsp">Contact Us</a>
               </li>
             </ul>
             <div class="user_optio_box">
-              <a href="http://127.0.0.1:5500/login.html">
+              <a href="login.jsp">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
-              <a href="Cart.jsp
-              ">
+              <a href="Cart.jsp">
+              
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </a>
             </div>
@@ -197,10 +190,7 @@ img{
 
     
   <div class="container" >
-    
-    <!-- ===================== -->
-    <!---     cart details    --->
-    <!-- ===================== --> 
+
     <section id="cart" class="section-p1">
       <table width="100%">
           <thead>
@@ -248,58 +238,49 @@ img{
             <tr class="p-md-4">
                 <td>Name</td>
                 <td>Images </td>
-                <td>Srarttime</td>
-                <td>endTime</td>
-                <td>date</td>
+                <td>Start time</td>
+                <td>End Time</td>
+                <td>Date</td>
                 <td>price</td>
-                <td>SubToltal</td>
-                
-             
-                <!-- <td>action</td> -->
+                <td>SubTotal</td>
+
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>1</td>
                 <td><img class="pitch_img" src="images/pitch_11A.jpg"></td>
-                <td>7:00</td>
-                <td>8:00</td>
                 <td>
-                  <form >
-                    <input type="date"style="width: 120px;">
-                  </form>
+				    <select id="startTime">
+				        <% for (int i = 0; i < 24; i++) { %>
+				            <option value="<%= String.format("%02d:00", i) %>"><%= String.format("%02d:00", i) %></option>
+				        <% } %>
+				    </select>
+				</td>
+				<td>
+    <select id="endTime">
+        <% for (int i = 1; i <= 24; i++) { %>
+            <option value="<%= String.format("%02d:00", i) %>"><%= String.format("%02d:00", i) %></option>
+        <% } %>
+    </select>
+</td>
+
+                <td>
+                  <form>
+    <input type="date" style="width: 120px;" id="datePicker" 
+           min="<%=java.time.LocalDate.now()%>">
+</form>
+
                 </td>
                 <td>200 EGP</td>
                 <td ></td>          
                 
-            </tr>
-            <!-- <tr>
-                <td>2</td>
-                <td><img src="images/pitch_5A.jpg"></td>
-                <td>7:00</td>
-                <td>8:00</td>
-                <td></td>
-                <td>200 EGP</td>
-                <td></td>
-            
-            </tr>
-            <tr>
-                <td>3</td>
-                <td><img src="images/pitch_5E.jpg"></td>
-                <td>7:00</td>
-                <td>8:00</td>
-                <td></td>
-                <td>200 EGP</td>
-                <td></td>
-      
-            </tr> -->
+
         </tbody>
     </table>
 </section>
 
-  <!-- ===================== -->
-  <!--     cart add details    -->
-  <!-- ===================== -->
+
   <section id="cart-add" class="section-p1">
       <div id="coupon">
           <h3>Discount</h3>
@@ -326,6 +307,7 @@ img{
                   <td><strong>650 EGP</strong></td>
               </tr>
           </table>
+          <button class="normal">Update Cart</button>
           <button class="normal">Checkout</button>
       </div>
   </section>

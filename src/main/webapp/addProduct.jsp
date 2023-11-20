@@ -2,8 +2,8 @@
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
+
 <body>
 	<div class="container-scroller">
 		<c:import url="sidebar.jsp" />
@@ -29,8 +30,8 @@
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-					<a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-						src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+					<a class="navbar-brand brand-logo-mini" href="index.html"><img
+						src="assets/images/logo-mini.svg" alt="logo" /></a>
 				</div>
 				<div
 					class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -39,7 +40,7 @@
 						<span class="mdi mdi-menu"></span>
 					</button>
 					<ul class="navbar-nav navbar-nav-right">
-
+						<li class="nav-item nav-settings d-none d-lg-block"></li>
 
 						<li class="nav-item dropdown"><a class="nav-link"
 							id="profileDropdown" href="#" data-toggle="dropdown">
@@ -87,53 +88,46 @@
 			</nav>
 			<div class="main-panel">
 				<div class="content-wrapper">
-					<div class="page-header">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Product Name</th>
-										<th>Images</th>
-										<th>Price</th>
-										<th>Quantity</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${list_product}" var="pro">
-    <tr>
-        <td>${pro.productName}</td>
-        <td><img src="images/${pro.img}" alt=""></td>
-        <td>${pro.productPrice}</td>
-        <td>${pro.quantity}</td>
-        <td class="actions-cell">
-            <div class="buttons right nowrap">
-                <button class="button small green --jb-modal show" data-target="sample-modal-2" type="button">
-                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                </button>
-                <c:url var="deleteProductUrl" value="deleteProduct">
-                    <c:param name="product_id" value="${pro.productID}" />
-                </c:url>
-                <a href="${deleteProductUrl}" class="button small red --jb-modal" onclick="confirmDelete('${pro.productID}')">
-                    <span class="icon-button">
-                        <button type="button">
-                            <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                        </button>
-                    </span>
-                </a>
-            </div>
-        </td>
-    </tr>
-</c:forEach>
+					<div class="row ">
+						<div class="col-12 grid-margin">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Add Product</h4>
+									<div class="table-responsive">
+										<!-- Add Product Form -->
+										
+										<form action="addProduct" method="post" enctype="multipart/form-data">
+    
+    <div class="form-group">
+        <label for="productName">Name:</label>
+        <input type="text" class="form-control" id="productName" name="productName" required>
+    </div>
+    <div class="form-group">
+        <label for="productPrice">Price:</label>
+        <input type="text" class="form-control" id="productPrice" name="productPrice" required>
+    </div>
+    <div class="form-group">
+        <label for="productQuantity">Quantity:</label>
+        <input type="text" class="form-control" id="productQuantity" name="productQuantity" required>
+    </div>
+    <div class="form-group">
+        <label for="productImage">Image:</label>
+        <input type="file" name="productImage" class="form-control-file" id="productImage" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-								</tbody>
-							</table>
+										<!-- End Add Product Form -->
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	<script src="assets/vendors/js/vendor.bundle.base.js"></script>
 	<script src="assets/vendors/chart.js/Chart.min.js"></script>
@@ -148,10 +142,5 @@
 	<script src="assets/js/settings.js"></script>
 	<script src="assets/js/todolist.js"></script>
 	<script src="assets/js/dashboard.js"></script>
-	<script>
-		function reloadPage() {
-			location.reload();
-		}
-	</script>
 </body>
 </html>

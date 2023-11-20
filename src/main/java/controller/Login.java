@@ -30,6 +30,8 @@ public class Login extends HttpServlet{
 			
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}
+		
+		
 	}
 	
     @Override
@@ -49,7 +51,7 @@ public class Login extends HttpServlet{
             	if(remember!= null){
                 	
                     Cookie cookie = new Cookie("user", username);
-                    cookie.setMaxAge(3000);
+                    cookie.setMaxAge(30000);
                     resp.addCookie(cookie);
                 }
                 
@@ -57,9 +59,9 @@ public class Login extends HttpServlet{
                 session.setAttribute("user", username);
                 
                 if (acc.getRole().equals("1")) {
-                req.getRequestDispatcher("AdminPage.jsp").forward(req, resp);
+                req.getRequestDispatcher("AdminPage").forward(req, resp);
                 } else {
-                	req.getRequestDispatcher("product.html").forward(req, resp);
+                	req.getRequestDispatcher("index.jsp").forward(req, resp);
                 }
             }
           }

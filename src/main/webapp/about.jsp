@@ -1,52 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-  <!-- Basic -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
   <link rel="icon" href="images/fevicon/fevicon.png" type="image/gif" />
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
 
   <title>Soccer Field</title>
-
-
-  <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-  <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
-
-  <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <style>
-    .card-image {
+    .card {
+      margin-bottom: 20px;
+    }
+
+    .card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
+
+    .card-title {
+      margin-bottom: 0;
+    }
+
+    .card-price {
+      color: red;
+      font-weight: bold;
+    }
+
+    .card-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+    }
   </style>
 </head>
-
 <body class="sub_page">
-
   <div class="hero_area">
-  
-  <!-- Navbar -->
-  <%@include file="includes/Header.jsp" %> 
-    <!-- header section strats -->
+    <%@include file="includes/Header.jsp" %> 
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -55,7 +61,6 @@
               TEAM 10
             </span>
           </a>
-
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class=""> </span>
           </button>
@@ -66,17 +71,17 @@
                 <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="about.jsp">Soccer Field</a>
+                <a class="nav-link" href="listPitchUser">Soccer Field</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Category.jsp">Products</a>
+                <a class="nav-link" href="listProductUser">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.jsp">Contact Us</a>
               </li>
             </ul>
             <div class="user_optio_box">
-              <a href="http://127.0.0.1:5500/login.html">
+              <a href="profileUser.jsp">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
               <a href="Cart.jsp">
@@ -87,131 +92,33 @@
         </nav>
       </div>
     </header>
-    <!-- end header section -->
   </div>
-
-
+</br>
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5A.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
+      <c:forEach items="${list_pitch}" var="pitch">
+        <div class="col-md-3">
+          <div class="card">
+            <img src="images/${pitch.img}" alt="Sân bóng">
+            <div class="card-body">
+              <h3 class="card-title">
+                <c:choose>
+                  <c:when test="${pitch.pitchTypeID eq 1}">Sân 5</c:when>
+                  <c:when test="${pitch.pitchTypeID eq 2}">Sân 7</c:when>
+                  <c:when test="${pitch.pitchTypeID eq 3}">Sân 11</c:when>
+                  <c:otherwise>Unknown Role</c:otherwise>
+                </c:choose>
+              </h3>
+              <p class="card-price"><span>${pitch.price}</span><span>/h</span></p>
+              <a href="Cart.jsp" class="card-button">Booking now</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_7A.jpg" alt="Sân bóng đá 7 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 7 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_11A.jpg" alt="Sân bóng đá 11 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 11 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <img src="images/pitch_5C.jpg" alt="Sân bóng đá 5 người" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">Sân bóng đá 5 người</h3>
-            <p class="card-price"><span style="color: red;">200.000 đ</span></p>
-            <a href="testimonial.html" class="card-button">Booking now</a>
-          </div>
-        </div>
-      </div>
+      </c:forEach>
     </div>
   </div>
 
-   <!-- footer section -->
- 	<%@include file="includes/Footer.jsp" %> 
- 	<%@include file="includes/JS_File.jsp" %> 
-  
-
-
+  <%@include file="includes/Footer.jsp" %> 
+  <%@include file="includes/JS_File.jsp" %> 
 </body>
-
 </html>
