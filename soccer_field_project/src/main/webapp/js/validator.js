@@ -160,6 +160,27 @@ Validator.isRequired = function (selector, message) {
         }
     }
 }
+
+Validator.isRequiredSpace = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            // Kiểm tra có kí tự đặc biệt hoặc khoảng trắng không
+            
+            var hasWhiteSpace = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value);
+            console.log(hasWhiteSpace)
+            if (!value.trim()) {
+                return message || "Please don't leave this empty";
+            } else if ( !hasWhiteSpace) {
+                return message || "Special characters and spaces are not allowed";
+            } else {
+                return "";
+            }
+        }
+    }
+}
+
+
 Validator.isRequiredFullName = function (selector, message) {
     return {
         selector: selector,

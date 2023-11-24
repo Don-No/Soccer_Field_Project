@@ -19,12 +19,13 @@ import repository.UserRepository;
 public class LoginUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+
 	protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-	        
+
 	}
-	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	 @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 	        request.getRequestDispatcher("/login.jsp").forward(request, response);
 	    }
@@ -35,7 +36,7 @@ public class LoginUser extends HttpServlet {
 
 			  String username = req.getParameter("username");
 		        String password = req.getParameter("password");
-		   
+
 				UserRepository userService=new UserRepository();
 				HttpSession session = req.getSession();
 
@@ -50,8 +51,8 @@ public class LoginUser extends HttpServlet {
 		                session.setAttribute("acc", account);
 		            	req.getRequestDispatcher("index.jsp").forward(req, resp);
 		            }
-		           
-		            
+
+
 		          }
 	    }
 

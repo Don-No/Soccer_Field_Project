@@ -5,6 +5,80 @@ body {
   overflow-x: hidden;
 }
 
+.search_section{
+	background: #f5f5f5;
+}
+.header-search {
+    padding: 15px 0px;
+}
+
+.header-search form {
+    position: relative;
+}
+
+/*.header-search form .input-select {*/
+/*    margin-right: -4px;*/
+/*    border-radius: 40px 0px 0px 40px;*/
+/*}*/
+
+.header-search form .input {
+    width: 40%;
+    margin-right: -5px;
+    border-radius: 40px 0px 0px 40px;
+    height: 40px;
+    border-color: #8019c8;
+}
+
+.header-search form .search-btn {
+    height: 40px;
+    width: 100px;
+    background: #8019c8;
+    color: #FFF;
+    font-weight: 700;
+    border: none;
+    border-radius: 0px 40px 40px 0px;
+}
+
+
+
+.store-pagination {
+    float: right;
+}
+
+.store-pagination li {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #FFF;
+    border: 1px solid #E4E7ED;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.store-pagination li + li {
+    margin-left: 5px;
+}
+
+.store-pagination li:hover {
+    background-color: #E4E7ED;
+    color: #D10024;
+}
+
+.store-pagination li.active {
+    background-color: #8019c8;
+    border-color: #8019c8;
+    color: #FFF;
+    font-weight: 500;
+    cursor: default;
+}
+
+.store-pagination li a {
+    display: block;
+}
+
+
 .layout_padding {
   padding: 90px 0;
 }
@@ -28,6 +102,7 @@ body {
 .layout_padding-bottom {
   padding-bottom: 90px;
 }
+
 
 .heading_container {
   display: -webkit-box;

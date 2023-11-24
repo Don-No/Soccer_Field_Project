@@ -63,7 +63,7 @@
                 <a class="nav-link" href="about.html"> About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Store">Products</a>
+                <a class="nav-link" href="ListPitch">Booking</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="testimonial.html">Testimonial</a>

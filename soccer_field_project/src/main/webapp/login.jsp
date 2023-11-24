@@ -14,7 +14,7 @@
 
     <div class="login-wrap">
         <div class="login-html">
-        <form action="login" method="post" class="sign-in-form">
+        <form action="LoginUser" method="post" class="sign-in-form" id="form-login">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
             <div class="login-form">
@@ -22,10 +22,12 @@
                     <div class="group">
                         <label for="user" class="label">Username</label>
                         <input id="user" name="username" type="text" class="input">
+                        <span class="form__msg"></span>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password</label>
                         <input id="pass" name="password" type="password" class="input" data-type="password">
+                        <span class="form__msg"></span>
                     </div>
                     <div class="group">
                         <input id="check" name="rem" type="checkbox" class="check" checked>
@@ -73,6 +75,21 @@
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/validator.js"></script>
+  
+<!--   <script >  Validator({ -->
+//     form: '#form-login',
+//     formGroupSelector: '.group',
+//     errorSelector: '.form__msg',
+//         rules: [
+//         Validator.isRequiredSpace('#user'),
+//         Validator.isRequired('#pass'),
+//         Validator.isPassword('#pass', 8),
+        
+//         ,
+//     ],
+
+<!-- });</script> -->
 </body>
 
 </html>

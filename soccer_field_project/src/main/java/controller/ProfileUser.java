@@ -18,9 +18,10 @@ import repository.UserRepository;
 @WebServlet(name="ProfileUser",value = {"/profileUser"})
 public class ProfileUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		 String action = request.getParameter("view");
 	        try {
 	            switch (action) {
@@ -38,19 +39,19 @@ public class ProfileUser extends HttpServlet {
 	        }
 	}
 
-	
+
 	private void handleViewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		 HttpSession session = request.getSession();
 	        UserEntity account = (UserEntity) session.getAttribute("acc");
-	       
+
 	        if(account!=null){
-	        	
+
 	            request.setAttribute("infomation", account);
 	             request.setAttribute("hide", "hide");
 	            request.setAttribute("show", "show");
-	           
-	           
+
+
 	            request.getRequestDispatcher("profileUser.jsp").forward(request, response);
 	        }else {
 	            response.sendRedirect("LoginUser");
@@ -67,13 +68,13 @@ public class ProfileUser extends HttpServlet {
             String OldPass = request.getParameter("oldpassword");
             String NewPass = request.getParameter("newpassword");
 
-           
-            
+
+
 
 //            if(OldPass==null){
 //                request.getRequestDispatcher("profileUser.jsp").forward(request, response);
 //            } else {
-               
+
                 if(OldPass.equals(account.getPassword()))
                 {
                 	String username=account.getUsername();
@@ -97,6 +98,7 @@ public class ProfileUser extends HttpServlet {
     }
 
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -131,7 +133,7 @@ public class ProfileUser extends HttpServlet {
 	            String address = request.getParameter("address");
 	            int id= account.getUserID();
 	            UserEntity user = new UserEntity(id, name, email, address, phone);
-	            userService.updateProfile(user);  
+	            userService.updateProfile(user);
 	            UserEntity userupdate = userService.getUserById(id);
 	            request.setAttribute("infomation", userupdate);
 	            request.setAttribute("msgProfile", "Update Profile Success");
@@ -149,9 +151,9 @@ public class ProfileUser extends HttpServlet {
 
         HttpSession session = request.getSession();
         UserEntity account = (UserEntity) session.getAttribute("acc");
-       
+
         if(account!=null){
-        	
+
             request.setAttribute("infomation", account);
             request.setAttribute("show", "none");
             System.out.println(account.getEmail());
