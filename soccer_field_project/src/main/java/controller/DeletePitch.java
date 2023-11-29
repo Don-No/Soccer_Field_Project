@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import repository.PitchDAO;
 import repository.UserDAO;
 
 /**
@@ -20,7 +20,7 @@ public class DeletePitch extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int pitch_id = Integer.parseInt(req.getParameter("pitch_id"));
         try {
-            new UserDAO().deletePitch(pitch_id);
+            new PitchDAO().deletePitch(pitch_id);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

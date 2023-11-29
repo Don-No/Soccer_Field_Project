@@ -1,5 +1,6 @@
+User
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Admin Page</title>                                     
+<title>Admin Page</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -40,13 +41,13 @@ select.form-control.custom-select {
 }
 
 select.form-control.custom-select::after {
-        content: '\25BC';
-        color: #fff;
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-    }
+	content: '\25BC';
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	right: 12px;
+	transform: translateY(-50%);
+}
 
 input.form-control {
 	background-color: #2A3038;
@@ -55,19 +56,8 @@ input.form-control {
 	padding: .375rem .75rem;
 }
 
-textarea.form-control {
-	background-color: #2A3038;
-	color: #fff;
-	border: 1px solid #ced4da;
-	padding: .375rem .75rem;
-}
-
-textarea.form-control:focus {
-    color: #fff;
-}
-
 input.form-control:focus {
-    color: #fff;
+	color: #fff;
 }
 </style>
 </head>
@@ -106,51 +96,81 @@ input.form-control:focus {
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Add Pitch</h4>
-									<div class="table-responsive">
-										<!-- Add Product Form -->
-										<form action="addPitch" method="post">
+									<h4 class="card-title">Product Management</h4>
+									<form action="updateProduct?product_id=${detail.productID}"
+										method="post">
+										<section style="background-color: #050505;">
+											<div class="container py-5">
 
-											<div class="form-group">
-												<label for="pitchPrice">Pitch Name:</label> <input
-													type="text" class="form-control" id="pitchName"
-													name="pitchName" required><br>
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="card mb-4">
+															<div class="card-body text-center">
+																<label for="uploadImage"> <img id="previewImage"
+																	src="${detail.img}" alt="avatar"
+																	class="rounded-circle img-fluid"
+																	style="height: 180px; cursor: pointer;">
+																</label> <input type="file" id="uploadImage" name="uploadImage"
+																	id="uploadImage" style="display: none;"
+																	accept="image/*">
+																<h5 class="my-3">${detail.productName}</h5>
+																<input type="hidden" id="img_pre" name="img_pre"
+																	value="${detail.img}">
+															</div>
+														</div>
+
+													</div>
+													<div class="col-lg-8">
+														<div class="card mb-4">
+															<div class="card-body">
+																<div class="row">
+																	<div class="col-sm-3">
+																		<p class="mb-0">Product Name:</p>
+																	</div>
+																	<div class="col-sm-9">
+																		<input value="${detail.productName}" type="text"
+																			class="form-control" id="productName"
+																			name="productName" required>
+																	</div>
+																</div>
+																<hr>
+																<div class="row">
+																	<div class="col-sm-3">
+																		<p class="mb-0">Price:</p>
+																	</div>
+																	<div class="col-sm-9">
+																		<input value="${detail.productPrice}" type="text"
+																			class="form-control" id="productPrice"
+																			name="productPrice" required>
+																	</div>
+																</div>
+																<hr>
+																<div class="row">
+																	<div class="col-sm-3">
+																		<p class="mb-0">Quantity:</p>
+																	</div>
+																	<div class="col-sm-9">
+																		<input value="${detail.quantity}" type="text"
+																			class="form-control" id="quantity" name="quantity"
+																			required>
+																	</div>
+																</div>
+																<hr>
+																<div class="row mt-3">
+																	<div class="offset-sm-3 col-sm-9">
+																		<button type="submit"
+																			class="btn btn-primary float-right">Submit</button>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+													</div>
+												</div>
 											</div>
-
-											<div class="form-group">
-												<label for="pitchPrice">Pitch Price:</label> <input
-													type="text" class="form-control" id="pitchPrice"
-													name="pitchPrice" required><br>
-											</div>
-
-											<div class="form-group">
-												<label for="pitchPrice">Pitch Detail:</label>
-													<textarea rows="4" cols="150" placeholder="" class="form-control" id="pitchDetail"
-													name="pitchDetail"></textarea><br>
-											</div>
-
-											<div class="form-group">
-											<label for="pitchPrice">Pitch Type:</label>
-												<select class="form-control custom-select" id="pitchType"
-													name="pitchType" required>
-													<option value="1" selected>Sân 5</option>
-													<option value="2">Sân 7</option>
-													<option value="3">Sân 11</option>
-
-												</select><br>
-											</div>
-
-											<div class="form-group">
-												<label for="imgPitch">Image:</label> <input type="file"
-													name="imgPitch" class="form-control-file" id="imgPitch"
-													required>
-											</div>
-
-											<button type="submit" value="Add Pitch"
-												class="btn btn-primary">Submit</button>
-										</form>
-										<!-- End Add Product Form -->
-									</div>
+										</section>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -184,6 +204,38 @@ input.form-control:focus {
 	<!-- endinject -->
 	<!-- Custom js for this page -->
 	<script src="assets/js/dashboard.js"></script>
+
+	<script>
+		function reloadPage() {
+			location.reload();
+		}
+	</script>
+
+	<script>
+		// Function to handle image preview
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#previewImage').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		// Trigger file input when the label is clicked
+		$('label[for="uploadImage"]').click(function(e) {
+			e.preventDefault(); // Prevent default behavior of the label
+			$('#uploadImage').click();
+		});
+
+		// Handle file input change event
+		$('#uploadImage').change(function() {
+			readURL(this);
+		});
+	</script>
 	<!-- End custom js for this page -->
 </body>
 

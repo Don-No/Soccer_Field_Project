@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import repository.ProductDAO;
 import repository.UserDAO;
 
 /**
@@ -19,7 +20,7 @@ public class DeleteProduct extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int product_id = Integer.parseInt(req.getParameter("product_id"));
         try {
-            new UserDAO().deleteProduct(product_id);
+            new ProductDAO().deleteProduct(product_id);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

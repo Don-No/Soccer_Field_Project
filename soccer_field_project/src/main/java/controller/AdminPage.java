@@ -24,6 +24,7 @@ public class AdminPage extends HttpServlet{
             try {
                     List<User> list = new UserDAO().getListUser();
                     req.setAttribute("list_user", list);
+                    req.setAttribute("username", username);
                     req.getRequestDispatcher("/AdminPage.jsp").forward(req, resp);
                 //}
             } catch (ClassNotFoundException | SQLException e) {
@@ -40,6 +41,7 @@ public class AdminPage extends HttpServlet{
             try {
                     List<User> list = new UserDAO().getListUser();
                     req.setAttribute("list_user", list);
+                    req.setAttribute("username", username);
                     req.getRequestDispatcher("/AdminPage.jsp").forward(req, resp);
                 //}
             } catch (ClassNotFoundException | SQLException e) {

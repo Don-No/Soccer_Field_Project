@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.lang.Math"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,11 +34,17 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
+
+
+
+
+
 </head>
 <body>
 	<div class="container-scroller">
 		<!-- partial:../../partials/_sidebar.html -->
 		<c:import url="sidebar.jsp" />
+
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
 			<!-- partial:../../partials/_navbar.html -->
@@ -57,8 +68,7 @@
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
 										src="assets/images/faces/face15.jpg" alt="">
-									<p class="mb-0 d-none d-sm-block navbar-profile-name">Henry
-										Klein</p>
+									<p class="mb-0 d-none d-sm-block navbar-profile-name">${username}</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
@@ -66,7 +76,7 @@
 								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
 								aria-labelledby="profileDropdown">
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
+								<a class="dropdown-item preview-item" href="profileUser">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
 											<i class="mdi mdi-account-circle text-success"></i>
@@ -77,7 +87,7 @@
 									</div>
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
+								<a class="dropdown-item preview-item" href="login.jsp">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
 											<i class="mdi mdi-logout text-danger"></i>
@@ -101,43 +111,65 @@
 				<div class="content-wrapper">
 					<div class="page-header">
 						<div class="table-responsive">
+
+							<a href="addPitch.jsp" class="btn btn-primary">Add Pitch</a>
+							<!-- set size page -->
+							<c:set var="list_pitch" value="${requestScope.list_pitch}" />
+							<c:set var="pageSize" value="3" />
+							<c:set var="currentPage"
+								value="${param.pageNumber == null ? 1 : param.pageNumber}" />
+							<c:set var="totalPages"
+								value="${Math.round(Math.ceil(fn:length(list_pitch) / pageSize))}" />
+							<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+							<c:set var="endIndex"
+								value="${Math.min(Integer.valueOf(currentPage * pageSize-1),Integer.valueOf( fn:length(list_pitch)-1))}" />
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>Pitch ID</th>
 										<th>Images</th>
+										<th>Name Pitch</th>
 										<th>Price</th>
 										<th>Type</th>
 										<th>Action</th>
 									</tr>
 								</thead>
+
+
 								<tbody>
-									<c:forEach items="${list_pitch}" var="pitch">
+
+									<c:forEach items="${list_pitch}" var="pitch"
+										begin="${startIndex}" end="${endIndex}">
 										<tr>
-											<td>${pitch.pitchID}</td>
-											<td><img src="${pitch.img}" alt=""></td>
+											<td><img src="${pitch.img}" alt=""
+												style="width: 170px; height: 100px; border-radius: 5%;"></td>
+											<td>${pitch.name}</td>
 											<td>${pitch.price}</td>
 											<td><c:choose>
 													<c:when test="${pitch.pitchTypeID eq 1}">
-      															Pitch_5
+      															Sân 5
     															</c:when>
 													<c:when test="${pitch.pitchTypeID eq 2}">
-      															Pitch_7
+      															Sân 7
    																</c:when>
 													<c:when test="${pitch.pitchTypeID eq 3}">
-      															Pitch_11
+      															Sân 11
    																</c:when>
 													<c:otherwise>
       															Unknown Role
     															</c:otherwise>
 												</c:choose></td>
+
 											<td class="actions-cell">
 												<div class="buttons right nowrap">
-													<button class="button small green --jb-modal show"
-														data-target="sample-modal-2" type="button">
-														<span class="icon"><i class="mdi mdi-eye"></i></span>
-													</button>
-													<a href="deletePitch?pitch_id=${pitch.pitchID}"
+													<a href="loadPitch?pitch_id=${pitch.pitchID}"
+														class="button small green --jb-modal show"
+														data-target="sample-modal-2"> <span
+														class="icon-button">
+															<button type="button">
+																<span class="icon"><i class="mdi mdi-eye"></i></span>
+															</button>
+													</span>
+													</a> <a href="deletePitch?pitch_id=${pitch.pitchID}"
 														class="button small red --jb-modal"
 														data-target="sample-modal"> <span class="icon-button">
 															<button type="button">
@@ -150,15 +182,33 @@
 											</td>
 										</tr>
 									</c:forEach>
+
 								</tbody>
 							</table>
+							<br>
+							<!-- Add pagination links with Bootstrap classes -->
+							<nav aria-label="Page navigation">
+								<ul class="pagination justify-content-end">
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=1" aria-label="First"> <<</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${currentPage==1?1:currentPage-1}"
+										aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+									</a></li>
+									<li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${currentPage==totalPage?totalPage:currentPage+1}"
+										aria-label="Next"> <span aria-hidden="true">&gt;</span>
+									</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${totalPages}" aria-label="Last"> >></a></li>
+								</ul>
+							</nav>
 						</div>
 					</div>
 
 				</div>
-				<!-- content-wrapper ends -->
-				<!-- partial:../../partials/_footer.html -->
-				<!-- partial -->
+
 			</div>
 			<!-- main-panel ends -->
 		</div>

@@ -6,12 +6,44 @@ public class Pitch {
 	private String img;
 	private String price;
 	private String pitchTypeID;
-	
-	public Pitch(String pitchID, String img, String price, String pitchTypeID) {
+	private String name;
+	private String detail;
+
+	public Pitch(String pitchID, String img, String price, String pitchTypeID, String name) {
 		this.pitchID = pitchID;
 		this.img = img;
 		this.price = price;
 		this.pitchTypeID = pitchTypeID;
+		this.name = name;
+	}
+
+
+
+	public Pitch(String pitchID, String img, String price, String pitchTypeID, String name, String detail) {
+		this.pitchID = pitchID;
+		this.img = img;
+		this.price = price;
+		this.pitchTypeID = pitchTypeID;
+		this.name = name;
+		this.detail = detail;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	public String getPitchID() {
@@ -45,6 +77,5 @@ public class Pitch {
 	public void setPitchTypeID(String pitchTypeID) {
 		this.pitchTypeID = pitchTypeID;
 	}
-	
-	
+
 }

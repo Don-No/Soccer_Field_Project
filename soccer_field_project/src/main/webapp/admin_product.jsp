@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.lang.Math"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,8 +61,7 @@
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
 										src="assets/images/faces/face15.jpg" alt="">
-									<p class="mb-0 d-none d-sm-block navbar-profile-name">Henry
-										Klein</p>
+									<p class="mb-0 d-none d-sm-block navbar-profile-name">${username}</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
@@ -66,7 +69,7 @@
 								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
 								aria-labelledby="profileDropdown">
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
+								<a class="dropdown-item preview-item" href="profileUser">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
 											<i class="mdi mdi-account-circle text-success"></i>
@@ -77,7 +80,7 @@
 									</div>
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
+								<a class="dropdown-item preview-item" href="login.jsp">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
 											<i class="mdi mdi-logout text-danger"></i>
@@ -101,6 +104,16 @@
 				<div class="content-wrapper">
 					<div class="page-header">
 						<div class="table-responsive">
+						<!-- set size page -->
+									<c:set var="list_product" value="${requestScope.list_product}" />
+									<c:set var="pageSize" value="5" />
+									<c:set var="currentPage"
+										value="${param.pageNumber == null ? 1 : param.pageNumber}" />
+									<c:set var="totalPages"
+										value="${Math.round(Math.ceil(fn:length(list_product) / pageSize))}" />
+									<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+									<c:set var="endIndex"
+										value="${Math.min(Integer.valueOf(currentPage * pageSize-1),Integer.valueOf( fn:length(list_product)-1))}" />
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -112,18 +125,24 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${list_product}" var="pro">
+									<c:forEach items="${list_product}" var="pro" begin="${startIndex}" end="${endIndex}">
 										<tr>
 											<td>${pro.productName}</td>
-											<td><img src="${pro.img}" alt=""></td>
+											<td><img src="${pro.img}" alt="" style="width: 60px; height: 60px;"></td>
 											<td>${pro.productPrice}</td>
 											<td>${pro.quantity}</td>
 											<td class="actions-cell">
 												<div class="buttons right nowrap">
-													<button class="button small green --jb-modal show"
-														data-target="sample-modal-2" type="button">
-														<span class="icon"><i class="mdi mdi-eye"></i></span>
-													</button>
+													<a href="loadProduct?product_id=${pro.productID}"
+																	class="button small green --jb-modal show"
+																	data-target="sample-modal-2"> <span
+																	class="icon-button">
+																		<button type="button">
+																			<span class="icon"><i
+																				class="mdi mdi-eye"></i></span>
+																		</button>
+																</span>
+																</a>
 													<a href="deleteProduct?product_id=${pro.productID}" class="button small red --jb-modal"
 														data-target="sample-modal"> <span class="icon-button">
 															<button type="button">
@@ -138,6 +157,26 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							<br>
+										<!-- Add pagination links with Bootstrap classes -->
+										<nav aria-label="Page navigation">
+											<ul class="pagination justify-content-end">
+												<li class="page-item"><a class="page-link"
+													href="?pageNumber=1" aria-label="First"> <<</a></li>
+												<li class="page-item"><a class="page-link"
+													href="?pageNumber=${currentPage==1?1:currentPage-1}"
+													aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+												</a></li>
+												<li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
+												<li class="page-item"><a class="page-link"
+													href="?pageNumber=${currentPage==totalPage?totalPage:currentPage+1}"
+													aria-label="Next"> <span aria-hidden="true">&gt;</span>
+												</a></li>
+												<li class="page-item"><a class="page-link"
+													href="?pageNumber=${totalPages}" aria-label="Last"> >></a>
+												</li>
+											</ul>
+										</nav>
 						</div>
 					</div>
 

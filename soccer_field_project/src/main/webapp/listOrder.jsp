@@ -4,9 +4,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.lang.Math"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -34,20 +34,25 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
-</head>
 
+
+
+
+
+</head>
 <body>
 	<div class="container-scroller">
-		<!-- partial:partials/_sidebar.html -->
+		<!-- partial:../../partials/_sidebar.html -->
 		<c:import url="sidebar.jsp" />
+
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
-			<!-- partial:partials/_navbar.html -->
+			<!-- partial:../../partials/_navbar.html -->
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-					<a class="navbar-brand brand-logo-mini" href="index.html"><img
-						src="assets/images/logo-mini.svg" alt="logo" /></a>
+					<a class="navbar-brand brand-logo-mini" href="../../index.html"><img
+						src="../../assets/images/logo-mini.svg" alt="logo" /></a>
 				</div>
 				<div
 					class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -56,7 +61,7 @@
 						<span class="mdi mdi-menu"></span>
 					</button>
 					<ul class="navbar-nav navbar-nav-right">
-						<li class="nav-item nav-settings d-none d-lg-block"></li>
+
 
 						<li class="nav-item dropdown"><a class="nav-link"
 							id="profileDropdown" href="#" data-toggle="dropdown">
@@ -104,116 +109,75 @@
 			<!-- partial -->
 			<div class="main-panel">
 				<div class="content-wrapper">
-					<div class="row ">
-						<div class="col-12 grid-margin">
-							<div class="card">
-								<div class="card-body">
-									<!-- set size page -->
-									<c:set var="list_user" value="${requestScope.list_user}" />
-									<c:set var="pageSize" value="8" />
-									<c:set var="currentPage"
-										value="${param.pageNumber == null ? 1 : param.pageNumber}" />
-									<c:set var="totalPages"
-										value="${Math.round(Math.ceil(fn:length(list_user) / pageSize))}" />
-									<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
-									<c:set var="endIndex"
-										value="${Math.min(Integer.valueOf(currentPage * pageSize-1),Integer.valueOf( fn:length(list_user)-1))}" />
-									<h4 class="card-title">User Management</h4>
-									<div class="table-responsive">
-										<table class="table table-striped">
-											<thead>
-												<tr>
-													<th>User</th>
-													<th>Name</th>
-													<th>Gmail</th>
-													<th>Phone</th>
-													<th>Address</th>
-													<th>Role</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${list_user}" var="user"
-													begin="${startIndex}" end="${endIndex}">
-													<tr>
-														<td class="py-1"><img
-															src="assets/images/faces-clipart/pic-1.png" alt="image" />
-														</td>
-														<td>${user.username}</td>
-														<td>${user.email}</td>
-														<td>${user.phone}</td>
-														<td>${user.address}</td>
-														<td><c:choose>
-																<c:when test="${user.role eq 1}">
-      															Admin
-    															</c:when>
-																<c:when test="${user.role eq 2}">
-      															User
-   																</c:when>
-																<c:otherwise>
-      															Unknown Role
-    															</c:otherwise>
-															</c:choose></td>
+					<div class="page-header">
+						<div class="table-responsive">
 
-														<td class="actions-cell">
-															<div class="buttons right nowrap">
-																<a href="loadUser?user_id=${user.userID}"
-																	class="button small green --jb-modal show"
-																	data-target="sample-modal-2"> <span
-																	class="icon-button">
-																		<button type="button">
-																			<span class="icon"><i class="mdi mdi-eye"></i></span>
-																		</button>
-																</span>
-																</a> <a href="deleteUser?user_id=${user.userID}"
-																	class="button small red --jb-modal"
-																	data-target="sample-modal"> <span
-																	class="icon-button">
-																		<button type="button">
-																			<span class="icon"><i
-																				class="mdi mdi-trash-can"></i></span>
-																		</button>
-																</span>
-																</a>
-															</div>
-														</td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-										<br>
-										<!-- Add pagination links with Bootstrap classes -->
-										<nav aria-label="Page navigation">
-											<ul class="pagination justify-content-end">
-												<li class="page-item"><a class="page-link"
-													href="?pageNumber=1" aria-label="First"> <<</a></li>
-												<li class="page-item"><a class="page-link"
-													href="?pageNumber=${currentPage==1?1:currentPage-1}"
-													aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-												</a></li>
-												<li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
-												<li class="page-item"><a class="page-link"
-													href="?pageNumber=${currentPage==totalPage?totalPage:currentPage+1}"
-													aria-label="Next"> <span aria-hidden="true">&gt;</span>
-												</a></li>
-												<li class="page-item"><a class="page-link"
-													href="?pageNumber=${totalPages}" aria-label="Last"> >></a>
-												</li>
-											</ul>
-										</nav>
+							<h4>Transaction History</h4>
+							<!-- set size page -->
+							<c:set var="list_pitch" value="${requestScope.list_order}" />
+							<c:set var="pageSize" value="10" />
+							<c:set var="currentPage"
+								value="${param.pageNumber == null ? 1 : param.pageNumber}" />
+							<c:set var="totalPages"
+								value="${Math.round(Math.ceil(fn:length(list_order) / pageSize))}" />
+							<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+							<c:set var="endIndex"
+								value="${Math.min(Integer.valueOf(currentPage * pageSize-1),Integer.valueOf( fn:length(list_order)-1))}" />
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Name User</th>
+										<th>Total Price</th>
+										<th>Time</th>
+										<th>Pay Method</th>
+										<th>Status</th>
+									</tr>
+								</thead>
 
-									</div>
-								</div>
-							</div>
+
+								<tbody>
+
+									<c:forEach items="${list_order}" var="order"
+										begin="${startIndex}" end="${endIndex}">
+										<tr>
+											<td>${order.username}</td>
+											<td>${order.price}</td>
+											<td>${order.time}</td>
+											<td>${order.payMethod}</td>
+											<td>${order.status}</td>
+										</tr>
+									</c:forEach>
+
+								</tbody>
+							</table>
+							<br>
+							<!-- Add pagination links with Bootstrap classes -->
+							<nav aria-label="Page navigation">
+								<ul class="pagination justify-content-end">
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=1" aria-label="First"> <<</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${currentPage==1?1:currentPage-1}"
+										aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+									</a></li>
+									<li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${currentPage==totalPage?totalPage:currentPage+1}"
+										aria-label="Next"> <span aria-hidden="true">&gt;</span>
+									</a></li>
+									<li class="page-item"><a class="page-link"
+										href="?pageNumber=${totalPages}" aria-label="Last"> >></a></li>
+								</ul>
+							</nav>
 						</div>
 					</div>
+
 				</div>
+
 			</div>
+			<!-- main-panel ends -->
 		</div>
-	</div>
-	<!-- main-panel ends -->
-	</div>
-	<!-- page-body-wrapper ends -->
+		<!-- page-body-wrapper ends -->
 	</div>
 	<!-- container-scroller -->
 	<!-- plugins:js -->
@@ -244,5 +208,4 @@
 	</script>
 	<!-- End custom js for this page -->
 </body>
-
 </html>

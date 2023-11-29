@@ -8,12 +8,11 @@ public class User {
     private String fullname;
     private String address;
     private String phone;
-    private String img;
 
     
     
     public User(String userID, String username, String role, String email, String fullname, String address,
-			String phone, String img) {
+			String phone) {
 		this.userID = userID;
 		this.username = username;
 		this.role = role;
@@ -21,18 +20,16 @@ public class User {
 		this.fullname = fullname;
 		this.address = address;
 		this.phone = phone;
-		this.img = img;
 	}
 
 
-	public User(String username, String role, String email, String fullname, String address, String phone, String img) {
+	public User(String username, String role, String email, String fullname, String address, String phone) {
         this.username = username;
         this.role = role;
         this.email = email;
         this.fullname = fullname;
         this.address = address;
         this.phone = phone;
-        this.img = img;
     }
     
     
@@ -81,11 +78,5 @@ public class User {
     }
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-    public String getImg() {
-        return img;
-    }
-    public void setImg(String img) {
-        this.img = img;
     }
 }

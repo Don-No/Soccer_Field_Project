@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import repository.PitchDAO;
+import repository.ProductDAO;
 import repository.UserDAO;
 
 @WebServlet("/addProduct")
@@ -18,17 +20,11 @@ public class AddProduct extends HttpServlet {
         String productName  = req.getParameter("productName");
         String productPrice = req.getParameter("productPrice");
         String productQuantity = req.getParameter("productQuantity");
-        String filename="";
-        System.out.println(productName + " " + productPrice);
-//        Part part = req.getPart("productImage");
-//        System.out.println(part);
-//        if(part.getSize() != 0){
-//            filename = new Feature().getFileName(part);
-//            part.write(filename);
-//            filename = "images/" + filename;
-//        }
+        String imgPre = req.getParameter("productImage");
+        String img = "images/" + imgPre;
+
         try {
-            new UserDAO().addProduct(productName, filename, productPrice, productQuantity);
+            new ProductDAO().addProduct(productName, img, productPrice, productQuantity);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

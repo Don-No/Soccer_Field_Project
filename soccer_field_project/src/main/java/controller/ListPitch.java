@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Pitch;
 import model.Product;
+import repository.PitchDAO;
 import repository.UserDAO;
 
 /**
@@ -21,9 +22,13 @@ import repository.UserDAO;
 public class ListPitch extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("user");
             try {
-                    List<Pitch> list = new UserDAO().getListPitch();
+                    List<Pitch> list = new PitchDAO().getListPitch();
                     req.setAttribute("list_pitch", list);
+                    req.setAttribute("username", username);
                     req.getRequestDispatcher("/listPitch.jsp").forward(req, resp);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();

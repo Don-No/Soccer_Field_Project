@@ -32,12 +32,13 @@ public class Login extends HttpServlet{
                     resp.addCookie(cookie);
                 }
                 HttpSession session = req.getSession();
-                session.setAttribute("user", username);
+                session.setAttribute("user", acc.getFullName());
                 if (acc.getRole().equals("1")) {
                 req.getRequestDispatcher("AdminPage").forward(req, resp);
                 } else {
                 	req.getRequestDispatcher("product.html").forward(req, resp);
                 }
+                return;
             }
           }
       		req.setAttribute("mess", "Wrong username or password!" );
