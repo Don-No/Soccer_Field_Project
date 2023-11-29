@@ -34,16 +34,27 @@ public class ProductDAO {
     }
     
  // delete product
-    public void deleteProduct(int proId) throws SQLException, ClassNotFoundException {
+//    public void deleteProduct(int proId) throws SQLException, ClassNotFoundException {
+//        conn = DBconnection.makeConnection();
+//        String query = "DELETE FROM Product WHERE productID = ?";
+//        ps = conn.prepareStatement(query);
+//        ps.setInt(1, proId);
+//        ps.executeUpdate();
+//    }
+    
+    public void deleteProduct(int product_id) throws SQLException, ClassNotFoundException {
         conn = DBconnection.makeConnection();
-        String query = "DELETE FROM Product WHERE productID = ?";
+        String query = "Update Product set quantity = 0 where productID = ?";
         ps = conn.prepareStatement(query);
-        ps.setInt(1, proId);
+        ps.setInt(1, product_id);
         ps.executeUpdate();
     }
     
     public List<Product> getListProduct() throws SQLException, ClassNotFoundException{
-        String query = "Select productID, productName, img, productPrice, quantity From Product ";
+        String query = "SELECT productID, productName, img, productPrice, quantity\r\n"
+        		+ "FROM Product\r\n"
+        		+ "WHERE quantity > 0;\r\n"
+        		+ "";
         List<Product> list = new ArrayList<>();
         conn = DBconnection.makeConnection();
         ps = conn.prepareStatement(query);

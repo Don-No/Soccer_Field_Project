@@ -22,7 +22,10 @@ public class PitchDAO {
 
     
     public List<Pitch> getListPitch() throws SQLException, ClassNotFoundException{
-        String query = "Select pitchID, img, price, pitchTypeID, name From Pitch ";
+        String query = "SELECT pitchID, img, price, pitchTypeID, name\r\n"
+        		+ "FROM Pitch\r\n"
+        		+ "WHERE price > 0;\r\n"
+        		+ "";
         List<Pitch> list = new ArrayList<>();
         conn = DBconnection.makeConnection();
         ps = conn.prepareStatement(query);
@@ -49,11 +52,19 @@ public class PitchDAO {
     
     
  // delete pitch
-    public void deletePitch(int pitchId) throws SQLException, ClassNotFoundException {
+//    public void deletePitch(int pitchId) throws SQLException, ClassNotFoundException {
+//        conn = DBconnection.makeConnection();
+//        String query = "DELETE FROM Pitch WHERE pitchID = ?";
+//        ps = conn.prepareStatement(query);
+//        ps.setInt(1, pitchId);
+//        ps.executeUpdate();
+//    }
+    
+    public void deletePitch(int pitch_id) throws SQLException, ClassNotFoundException {
         conn = DBconnection.makeConnection();
-        String query = "DELETE FROM Pitch WHERE pitchID = ?";
+        String query = "Update Pitch set price = 0 where pitchID = ?";
         ps = conn.prepareStatement(query);
-        ps.setInt(1, pitchId);
+        ps.setInt(1, pitch_id);
         ps.executeUpdate();
     }
     
