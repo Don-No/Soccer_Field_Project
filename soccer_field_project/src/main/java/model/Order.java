@@ -1,18 +1,37 @@
 package model;
 
 public class Order {
-    private String username;
-    private String price;
-    private String time;
-    private String payMethod;
-    private String status;
-    
+
+	private String id;
+	private String username;
+	private String price;
+	private String time;
+	private String payMethod;
+	private String status;
+
 	public Order(String username, String price, String time, String payMethod, String status) {
 		this.username = username;
 		this.price = price;
 		this.time = time;
 		this.payMethod = payMethod;
 		this.status = status;
+	}
+
+	public Order(String username, String price, String time, String payMethod, String status,String id) {
+		this.username = username;
+		this.price = price;
+		this.time = time;
+		this.payMethod = payMethod;
+		this.status = status;
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -54,7 +73,5 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-    
-	
 
 }

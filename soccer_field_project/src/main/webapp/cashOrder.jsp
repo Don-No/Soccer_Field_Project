@@ -35,7 +35,16 @@
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
 
+<style>
+select.form-control.custom-select {
+	color: #fff;
+	width: 100px;
+}
 
+select.form-control.custom-select option {
+	color: #fff;
+}
+</style>
 
 
 
@@ -131,6 +140,7 @@
 										<th>Time</th>
 										<th>Pay Method</th>
 										<th>Status</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 
@@ -144,21 +154,40 @@
 											<td>${order.price}</td>
 											<td>${order.time}</td>
 											<td>${order.payMethod}</td>
-											<td><c:choose>
-													<c:when test="${order.status eq 'Unpaid'}">
-														<div class="badge badge-outline-warning">Unpaid</div>
-													</c:when>
-													<c:when test="${order.status eq 'Paid'}">
-														<div class="badge badge-outline-success">Paid</div>
-													</c:when>
-													<c:when test="${order.status eq 'Cancel'}">
-														<div class="badge badge-outline-danger">Cancel</div>
-													</c:when>
-													<c:otherwise>
-														<!-- Default case if none of the conditions are met -->
-                     									${order.status}
-              										</c:otherwise>
-												</c:choose></td>
+											<td><select class="form-control custom-select"
+												id="status" name="status" required>
+													<c:choose>
+														<c:when test="${order.status eq 'Unpaid'}">
+															<option value="1" selected>Unpaid</option>
+															<option value="2">Cancel</option>
+															<option value="3">Paid</option>
+														</c:when>
+														<c:when test="${order.status eq 'Cancel'}">
+															<option value="1">Unpaid</option>
+															<option value="2" selected>Cancel</option>
+															<option value="3">Paid</option>
+														</c:when>
+														<c:otherwise>
+															<option value="1">Unpaid</option>
+															<option value="2">Cancel</option>
+															<option value="3" selected>Paid</option>
+														</c:otherwise>
+													</c:choose>
+											</select></td>
+											<td class="actions-cell">
+												<div class="buttons right nowrap">
+													<a href="#" class="button small green --jb-modal show"
+														data-target="sample-modal-2" onclick="updateOrderStatus(${order.id})"> <span
+														class="icon-button">
+															<button type="button"
+																style="background-color: #4CAF50; color: #ffffff; width: 37px; height: 27px;">
+																<span class="icon"><i class="mdi mdi-check"></i></span>
+															</button>
+
+													</span>
+													</a>
+												</div>
+											</td>
 										</tr>
 									</c:forEach>
 
@@ -218,6 +247,18 @@
 	<script>
 		function reloadPage() {
 			location.reload();
+		}
+	</script>
+	<script>
+		function updateOrderStatus(orderId) {
+			// Get the selected value from the dropdown
+			var selectedStatus = document.getElementById('status').value;
+
+			// Update the href attribute with the selected status
+			var link = document
+					.querySelector('a[data-target="sample-modal-2"]');
+			link.href = 'updateOrder?order_id=' + orderId + '&status='
+					+ selectedStatus;
 		}
 	</script>
 	<!-- End custom js for this page -->

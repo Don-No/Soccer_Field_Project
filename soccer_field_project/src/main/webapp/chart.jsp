@@ -111,78 +111,15 @@
 				<div class="content-wrapper">
 					<div class="page-header">
 						<div class="table-responsive">
+							<div class="col-lg-11 grid-margin stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Revenue Chart</h4>
+										<canvas id="barChart" style="height: 230px"></canvas>
+									</div>
+								</div>
+							</div>
 
-							<h4>Transaction History</h4>
-							<!-- set size page -->
-							<c:set var="list_pitch" value="${requestScope.list_order}" />
-							<c:set var="pageSize" value="10" />
-							<c:set var="currentPage"
-								value="${param.pageNumber == null ? 1 : param.pageNumber}" />
-							<c:set var="totalPages"
-								value="${Math.round(Math.ceil(fn:length(list_order) / pageSize))}" />
-							<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
-							<c:set var="endIndex"
-								value="${Math.min(Integer.valueOf(currentPage * pageSize-1),Integer.valueOf( fn:length(list_order)-1))}" />
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Name User</th>
-										<th>Total Price</th>
-										<th>Time</th>
-										<th>Pay Method</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-
-
-								<tbody>
-
-									<c:forEach items="${list_order}" var="order"
-										begin="${startIndex}" end="${endIndex}">
-										<tr>
-											<td>${order.username}</td>
-											<td>${order.price}</td>
-											<td>${order.time}</td>
-											<td>${order.payMethod}</td>
-											<td><c:choose>
-													<c:when test="${order.status eq 'Unpaid'}">
-														<div class="badge badge-outline-warning">Unpaid</div>
-													</c:when>
-													<c:when test="${order.status eq 'Paid'}">
-														<div class="badge badge-outline-success">Paid</div>
-													</c:when>
-													<c:when test="${order.status eq 'Cancel'}">
-														<div class="badge badge-outline-danger">Cancel</div>
-													</c:when>
-													<c:otherwise>
-														<!-- Default case if none of the conditions are met -->
-                     									${order.status}
-              										</c:otherwise>
-												</c:choose></td>
-										</tr>
-									</c:forEach>
-
-								</tbody>
-							</table>
-							<br>
-							<!-- Add pagination links with Bootstrap classes -->
-							<nav aria-label="Page navigation">
-								<ul class="pagination justify-content-end">
-									<li class="page-item"><a class="page-link"
-										href="?pageNumber=1" aria-label="First"> <<</a></li>
-									<li class="page-item"><a class="page-link"
-										href="?pageNumber=${currentPage==1?1:currentPage-1}"
-										aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-									</a></li>
-									<li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
-									<li class="page-item"><a class="page-link"
-										href="?pageNumber=${currentPage==totalPage?totalPage:currentPage+1}"
-										aria-label="Next"> <span aria-hidden="true">&gt;</span>
-									</a></li>
-									<li class="page-item"><a class="page-link"
-										href="?pageNumber=${totalPages}" aria-label="Last"> >></a></li>
-								</ul>
-							</nav>
 						</div>
 					</div>
 
@@ -219,6 +156,77 @@
 		function reloadPage() {
 			location.reload();
 		}
+	</script>
+	<script>
+	$(function() {
+	    'use strict';
+
+	    var data = {
+	        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+	        datasets: [{
+	            label: 'Votes',
+	            data:  [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 10, 5],
+	            backgroundColor: ['rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: ['rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1,
+	            fill: false
+	        }]
+	    };
+
+	    var options = {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                },
+	                gridLines: {
+	                    color: "rgba(204, 204, 204,0.1)"
+	                }
+	            }],
+	            xAxes: [{
+	                gridLines: {
+	                    color: "rgba(204, 204, 204,0.1)"
+	                }
+	            }]
+	        },
+	        legend: {
+	            display: false
+	        },
+	        elements: {
+	            point: {
+	                radius: 0
+	            }
+	        }
+	    };
+
+	    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+	    var barChart = new Chart(barChartCanvas, {
+	        type: 'bar',
+	        data: data,
+	        options: options
+	    });
+	});
+
 	</script>
 	<!-- End custom js for this page -->
 </body>

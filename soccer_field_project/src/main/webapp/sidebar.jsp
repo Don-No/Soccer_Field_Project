@@ -42,10 +42,26 @@
 			</span> <span class="menu-title">Pitch Management</span>
 		</a></li>
 
+
 		<li class="nav-item menu-items"><a class="nav-link"
-			href="listOrder"> <span class="menu-icon"> <i
+			data-toggle="collapse" href="#auth" aria-expanded="false"
+			aria-controls="auth"> <span class="menu-icon"> <i
 					class="mdi mdi-newspaper"></i>
-			</span> <span class="menu-title">Order Management</span>
+			</span> <span class="menu-title">Order Management</span> <i
+				class="menu-arrow"></i>
+		</a>
+			<div class="collapse" id="auth">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item"><a class="nav-link" href="cashOrder">
+							Cash Transactions </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="listOrder"> Transaction History </a></li>
+				</ul>
+			</div></li>
+		<li class="nav-item menu-items"><a class="nav-link"
+			href="chartDataServlet"> <span class="menu-icon"> <i
+					class="mdi mdi-newspaper"></i>
+			</span> <span class="menu-title">Revenue Chart</span>
 		</a></li>
 	</ul>
 </nav>
